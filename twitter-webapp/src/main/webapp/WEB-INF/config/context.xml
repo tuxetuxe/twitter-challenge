@@ -24,7 +24,15 @@
 			<property name="validationQuery" value="${jdbc.validationQuery}" />
 		</bean>
 	</beans>
-	
+
+	<!-- Activate with -Dspring.profiles.active=production -->
+	<beans profile="openshift">
+		<bean id="dbDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName" value="java:comp/env/jdbc/MysqlDS" />
+		</bean>
+	</beans>
+
+
 	<!-- Activate with -Dspring.profiles.active=development -->
 	<beans profile="development">
 		<jdbc:embedded-database id="dataSource" type="DERBY" />
