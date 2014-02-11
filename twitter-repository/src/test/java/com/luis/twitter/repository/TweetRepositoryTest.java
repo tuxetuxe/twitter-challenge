@@ -55,7 +55,6 @@ public class TweetRepositoryTest extends BaseRepositoryTest {
 		Assert.assertEquals(1, tweetsWithoutFollowing.size());
 		Assert.assertEquals(tweetContents, tweetsWithoutFollowing.get(0).getContents());
 		Assert.assertEquals(user1.getId(), tweetsWithoutFollowing.get(0).getAuthorId());
-		Assert.assertTrue(tweetsWithoutFollowing.get(0).getCreationDate().after(tweetsWithoutFollowing.get(1).getCreationDate()));
 
 		userFollowingRepository.startFollowing(user1, user2);
 		userFollowingRepository.startFollowing(user2, user3);
