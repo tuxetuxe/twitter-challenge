@@ -8,4 +8,6 @@ public interface UserRepository extends BaseRepository<User> {
 
 	User findByUsername(String username);
 
+	boolean userExists(String username);
+
 }

@@ -18,11 +18,12 @@ import com.luis.twitter.model.User;
 import com.luis.twitter.model.UsersList;
 import com.luis.twitter.repository.UserFollowingRepository;
 import com.luis.twitter.repository.UserRepository;
+import com.luis.twitter.repository.exceptions.UserAlreadyExistsException;
 
 @Controller
 @Transactional
-@RequestMapping(value = "/users", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
-		MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/users", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
+		MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public class UserControllerImpl implements UserController {
 
 	@Autowired
@@ -32,10 +33,14 @@ public class UserControllerImpl implements UserController {
 	private UserFollowingRepository userFollowingRepository;
 
 	@Override
-	@RequestMapping(method = RequestMethod.PUT, value = "/{username}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/{username:.*}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
 	User addUser(@PathVariable String username, @RequestParam String name) {
+		// check if the user is already created
+		if (userRepository.userExists(username)) {
+			throw new UserAlreadyExistsException(username);
+		}
 		User user = new User();
 		user.setUsername(username);
 		user.setName(name);
@@ -43,14 +48,14 @@ public class UserControllerImpl implements UserController {
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.GET, value = "/{username}")
+	@RequestMapping(method = RequestMethod.GET, value = "/{username:.*}")
 	public @ResponseBody
 	User getUserInfo(@PathVariable String username) {
 		return userRepository.findByUsername(username);
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.GET, value = "/{username}/followers")
+	@RequestMapping(method = RequestMethod.GET, value = "/{username:.*}/followers")
 	public @ResponseBody
 	UsersList getFollowersForUser(@PathVariable String username) {
 		Assert.notNull(username);
@@ -59,7 +64,7 @@ public class UserControllerImpl implements UserController {
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.GET, value = "/{username}/following")
+	@RequestMapping(method = RequestMethod.GET, value = "/{username:.*}/following")
 	public @ResponseBody
 	UsersList findWhoTheUserFollows(@PathVariable String username) {
 		Assert.notNull(username);
@@ -68,7 +73,7 @@ public class UserControllerImpl implements UserController {
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.POST, value = "/{username}/follow/{otherUsername}")
+	@RequestMapping(method = RequestMethod.POST, value = "/{username:.*}/follow/{otherUsername}")
 	public @ResponseBody
 	Boolean startFollowingUser(@PathVariable String username, @PathVariable String otherUsername) {
 		Assert.notNull(username);
@@ -80,7 +85,7 @@ public class UserControllerImpl implements UserController {
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{username}/follow/{otherUsername}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{username:.*}/follow/{otherUsername}")
 	public @ResponseBody
 	Boolean stopFollowingUser(@PathVariable String username, @PathVariable String otherUsername) {
 		Assert.notNull(username);

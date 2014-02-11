@@ -40,4 +40,15 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
 		return users.get(0);
 	}
 
+	@Override
+	public boolean userExists(String username) {
+		// TODO Auto-generated method stub
+		String query = "SELECT * FROM users where username = :username";
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("username", username);
+
+		List<User> users = getJdbcTemplate().query(query, parameters, getRowMapper());
+
+		return users != null && !users.isEmpty();
+	}
 }

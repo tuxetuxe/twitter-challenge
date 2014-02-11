@@ -34,7 +34,7 @@ public class TweetControllerImpl implements TweetController {
 
 	@Override
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(method = RequestMethod.GET, value = "/{username}/timeline")
+	@RequestMapping(method = RequestMethod.GET, value = "/{username:.*}/timeline")
 	public @ResponseBody
 	TweetList getTweetsForUser(@PathVariable String username, @RequestParam(value = "search", required = false) String searchString) {
 		Assert.notNull(username);
@@ -44,7 +44,7 @@ public class TweetControllerImpl implements TweetController {
 
 	@Override
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(method = RequestMethod.PUT, value = "/{username}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/{username:.*}")
 	public @ResponseBody
 	Tweet addTweet(@PathVariable String username, @RequestParam String contents) {
 		Assert.notNull(username);
