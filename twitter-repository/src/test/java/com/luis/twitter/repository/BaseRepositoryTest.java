@@ -14,4 +14,11 @@ public class BaseRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 	public void nop() {
 	}
 
+	protected void sleep(int seconds) {
+		try {
+			Thread.sleep(seconds * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }

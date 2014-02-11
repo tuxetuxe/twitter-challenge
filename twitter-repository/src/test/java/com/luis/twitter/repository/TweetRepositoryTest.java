@@ -46,7 +46,9 @@ public class TweetRepositoryTest extends BaseRepositoryTest {
 
 		String tweetContents = "Heeelloooo!";
 		tweetRepository.addTweet(tweetContents, user1);
+		sleep(3);
 		tweetRepository.addTweet(tweetContents, user2);
+		sleep(3);
 		tweetRepository.addTweet(tweetContents, user3);
 
 		Assert.assertEquals(3, countRowsInTable("tweets"));
@@ -77,7 +79,9 @@ public class TweetRepositoryTest extends BaseRepositoryTest {
 		String helloSwedish = "hej!";
 		String helloEnglishAndSwedish = "Hello == hej!";
 		tweetRepository.addTweet(helloEnglish, user1);
+		sleep(3);
 		tweetRepository.addTweet(helloEnglishAndSwedish, user2);
+		sleep(3);
 		tweetRepository.addTweet(helloSwedish, user1);
 
 		userFollowingRepository.startFollowing(user1, user2);
