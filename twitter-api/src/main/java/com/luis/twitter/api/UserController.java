@@ -1,7 +1,7 @@
 package com.luis.twitter.api;
 
 import com.luis.twitter.model.User;
-import com.luis.twitter.model.collections.UsersCollection;
+import com.luis.twitter.model.UsersList;
 
 public interface UserController {
 
@@ -9,9 +9,9 @@ public interface UserController {
 
 	User getUserInfo(String username);
 
-	UsersCollection getFollowersForUser(String username);
+	UsersList getFollowersForUser(String username);
 
-	UsersCollection findWhoTheUserFollows(String username);
+	UsersList findWhoTheUserFollows(String username);
 
 	Boolean startFollowingUser(String username, String otherUsername);
 

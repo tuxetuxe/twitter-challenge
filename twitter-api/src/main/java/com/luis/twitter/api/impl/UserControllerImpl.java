@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.luis.twitter.api.UserController;
 import com.luis.twitter.model.User;
-import com.luis.twitter.model.collections.UsersCollection;
+import com.luis.twitter.model.UsersList;
 import com.luis.twitter.repository.UserFollowingRepository;
 import com.luis.twitter.repository.UserRepository;
 
@@ -52,19 +52,19 @@ public class UserControllerImpl implements UserController {
 	@Override
 	@RequestMapping(method = RequestMethod.GET, value = "/{username}/followers")
 	public @ResponseBody
-	UsersCollection getFollowersForUser(@PathVariable String username) {
+	UsersList getFollowersForUser(@PathVariable String username) {
 		Assert.notNull(username);
 		User user = userRepository.findByUsername(username);
-		return new UsersCollection(userFollowingRepository.findFollowersForUser(user));
+		return new UsersList(userFollowingRepository.findFollowersForUser(user));
 	}
 
 	@Override
 	@RequestMapping(method = RequestMethod.GET, value = "/{username}/following")
 	public @ResponseBody
-	UsersCollection findWhoTheUserFollows(@PathVariable String username) {
+	UsersList findWhoTheUserFollows(@PathVariable String username) {
 		Assert.notNull(username);
 		User user = userRepository.findByUsername(username);
-		return new UsersCollection(userFollowingRepository.findWhoTheUserFollows(user));
+		return new UsersList(userFollowingRepository.findWhoTheUserFollows(user));
 	}
 
 	@Override

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.luis.twitter.api.TweetController;
 import com.luis.twitter.model.Tweet;
+import com.luis.twitter.model.TweetList;
 import com.luis.twitter.model.User;
-import com.luis.twitter.model.collections.TweetCollection;
 import com.luis.twitter.repository.TweetRepository;
 import com.luis.twitter.repository.UserRepository;
 
@@ -36,10 +36,10 @@ public class TweetControllerImpl implements TweetController {
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.GET, value = "/{username}/timeline")
 	public @ResponseBody
-	TweetCollection getTweetsForUser(@PathVariable String username, @RequestParam(value = "search", required = false) String searchString) {
+	TweetList getTweetsForUser(@PathVariable String username, @RequestParam(value = "search", required = false) String searchString) {
 		Assert.notNull(username);
 		User user = userRepository.findByUsername(username);
-		return new TweetCollection(tweetRepository.timelineTweetsForUser(user, searchString));
+		return new TweetList(tweetRepository.timelineTweetsForUser(user, searchString));
 	}
 
 	@Override
