@@ -24,6 +24,7 @@
 			<property name="validationQuery" value="${jdbc.validationQuery}" />
 		</bean>
 	</beans>
+	
 	<!-- Activate with -Dspring.profiles.active=development -->
 	<beans profile="development">
 		<jdbc:embedded-database id="dataSource" type="DERBY" />
