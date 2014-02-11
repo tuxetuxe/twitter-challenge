@@ -66,7 +66,7 @@ public class TweetRepositoryTest extends BaseRepositoryTest {
 
 		Assert.assertEquals(tweetContents, tweetsWithFollowing.get(1).getContents());
 		Assert.assertEquals(user1.getId(), tweetsWithFollowing.get(1).getAuthorId());
-		Assert.assertTrue(tweetsWithFollowing.get(0).getCreationDate().after(tweetsWithoutFollowing.get(1).getCreationDate()));
+		Assert.assertTrue(tweetsWithFollowing.get(0).getCreationDate().after(tweetsWithFollowing.get(1).getCreationDate()));
 
 	}
 
