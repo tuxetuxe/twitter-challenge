@@ -22,11 +22,11 @@ public class UsersList {
 		users = new ArrayList<>(collection);
 	}
 
-	public List<User> getTweets() {
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public void setTweets(List<User> tweets) {
-		this.users = tweets;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 }
