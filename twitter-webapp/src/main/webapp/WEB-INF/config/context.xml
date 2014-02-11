@@ -25,14 +25,6 @@
 		</bean>
 	</beans>
 
-	<!-- Activate with -Dspring.profiles.active=production -->
-	<beans profile="openshift">
-		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-			<property name="jndiName" value="java:comp/env/jdbc/MysqlDS" />
-		</bean>
-	</beans>
-
-
 	<!-- Activate with -Dspring.profiles.active=development -->
 	<beans profile="development">
 		<jdbc:embedded-database id="dataSource" type="DERBY" />
