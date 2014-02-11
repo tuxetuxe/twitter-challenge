@@ -1,6 +1,7 @@
 package com.luis.twitter.repository.impl;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
@@ -57,9 +58,16 @@ public abstract class BaseRepositoryImpl<T extends BaseDomain> implements BaseRe
 	public void delete(T value) {
 		Objects.requireNonNull(value);
 
-		String deleteQuery = String.format("DELETE FROM %s WHERE id = :id", getTableName());
+		String sql = String.format("DELETE FROM %s WHERE id = :id", getTableName());
 
-		jdbcTemplate.update(deleteQuery, Collections.singletonMap("id", value.getId()));
+		jdbcTemplate.update(sql, Collections.singletonMap("id", value.getId()));
+	}
+
+	@Override
+	public List<T> findAll() {
+		String sql = String.format("SELECT * FROM %s", getTableName());
+
+		return jdbcTemplate.query(sql, getRowMapper());
 	}
 
 	protected abstract Object getTableName();

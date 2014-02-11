@@ -21,8 +21,8 @@ import com.luis.twitter.repository.UserRepository;
 
 @Controller
 @Transactional
-@RequestMapping(value = "/users", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
-		MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/users", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
+		MediaType.APPLICATION_XML_VALUE })
 public class UserControllerImpl implements UserController {
 
 	@Autowired
@@ -89,6 +89,13 @@ public class UserControllerImpl implements UserController {
 		User otherUser = userRepository.findByUsername(otherUsername);
 		userFollowingRepository.stopFollowing(user, otherUser);
 		return true;
+	}
+
+	@Override
+	@RequestMapping(method = RequestMethod.GET, value = "/")
+	public @ResponseBody
+	UsersList getAllUsers() {
+		return new UsersList(userRepository.findAll());
 	}
 
 }

@@ -17,4 +17,6 @@ public interface UserController {
 
 	Boolean stopFollowingUser(String username, String otherUsername);
 
+	UsersList getAllUsers();
+
 }
