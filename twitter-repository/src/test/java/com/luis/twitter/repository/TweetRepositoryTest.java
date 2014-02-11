@@ -61,11 +61,11 @@ public class TweetRepositoryTest extends BaseRepositoryTest {
 
 		List<Tweet> tweetsWithFollowing = tweetRepository.timelineTweetsForUser(user1);
 		Assert.assertEquals(2, tweetsWithFollowing.size());
-		Assert.assertEquals(tweetContents, tweetsWithoutFollowing.get(0).getContents());
-		Assert.assertEquals(user2.getId(), tweetsWithoutFollowing.get(0).getAuthorId());
+		Assert.assertEquals(tweetContents, tweetsWithFollowing.get(0).getContents());
+		Assert.assertEquals(user2.getId(), tweetsWithFollowing.get(0).getAuthorId());
 
-		Assert.assertEquals(tweetContents, tweetsWithoutFollowing.get(0).getContents());
-		Assert.assertEquals(user1.getId(), tweetsWithoutFollowing.get(0).getAuthorId());
+		Assert.assertEquals(tweetContents, tweetsWithFollowing.get(0).getContents());
+		Assert.assertEquals(user1.getId(), tweetsWithFollowing.get(0).getAuthorId());
 		Assert.assertTrue(tweetsWithoutFollowing.get(0).getCreationDate().after(tweetsWithoutFollowing.get(1).getCreationDate()));
 
 	}
