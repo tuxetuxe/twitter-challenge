@@ -1,0 +1,60 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="1" author="luis santos">
+		<createTable tableName="users">
+			<column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="java.sql.Types.VARCHAR(250)">
+				<constraints nullable="false" />
+			</column>
+			<column name="username" type="java.sql.Types.VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createIndex indexName="id_users_username" tableName="users" unique="true">
+			<column name="username" type="java.sql.Types.VARCHAR(50)" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="2" author="luis santos">
+		<createTable tableName="user_following">
+			<column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="user_id" type="java.sql.Types.BIGINT">
+				<constraints nullable="false" foreignKeyName="fk_user_following_user" referencedColumnNames="id" referencedTableName="users" />
+			</column>
+			<column name="following_id" type="java.sql.Types.BIGINT">
+				<constraints nullable="false" foreignKeyName="fk_user_following_following" referencedColumnNames="id" referencedTableName="users" />
+			</column>
+		</createTable>
+
+		<addUniqueConstraint tableName="user_following" columnNames="user_id,following_id" />
+	</changeSet>
+
+	<changeSet id="3" author="luis santos">
+		<createTable tableName="tweets">
+			<column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="contents" type="java.sql.Types.VARCHAR(140)">
+				<constraints nullable="false" />
+			</column>
+			<column name="author_id" type="java.sql.Types.BIGINT">
+				<constraints nullable="false" foreignKeyName="fk_tweets_user" referencedColumnNames="id" referencedTableName="users" />
+			</column>
+			<column name="creation_date" type="java.sql.Types.TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+
+	</changeSet>
+
+
+</databaseChangeLog>
