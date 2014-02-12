@@ -12,7 +12,8 @@ import com.luis.twitter.model.TweetList;
 public interface TweetController {
 
 	/**
-	 * Return the list of tweets that compose the user timeline (his, and the ones from the users that he follows)
+	 * Return the list of tweets that compose the user timeline (his, and the ones from the users that he follows).
+	 * An optional search string can be used to filter out tweets.
 	 * 
 	 * @param username The user for which the timeline will be fetched
 	 * @param searchString An optional search parameter to filter out tweets by its contents

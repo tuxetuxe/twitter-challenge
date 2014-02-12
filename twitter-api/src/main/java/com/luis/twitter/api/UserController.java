@@ -12,7 +12,7 @@ import com.luis.twitter.model.UsersList;
 public interface UserController {
 
 	/**
-	 * Created a new user in the system
+	 * Creates a new user in the system
 	 * 
 	 * @param username The user username
 	 * @param name The user name
@@ -21,7 +21,7 @@ public interface UserController {
 	User addUser(String username, String name);
 
 	/**
-	 * Gets all the available user infor from a username
+	 * Gets all the available user information from a username
 	 * 
 	 * @param username The username of the user
 	 * @return A User object with all the user info available
@@ -37,7 +37,7 @@ public interface UserController {
 	UsersList getFollowersForUser(String username);
 
 	/**
-	 * Gets all the users that a user follow
+	 * Gets all the users that a user follows
 	 * 
 	 * @param username The username of the user to search
 	 * @return A list of users that the user specified in the parameter follow
