@@ -9,7 +9,7 @@ package com.luis.twitter.api;
 public interface SecurityController {
 
 	/**
-	 * Issues a token that has to be used in all consequent request for them to be authorized
+	 * Issues a token that has to be used in all consequent request for them to be authorised
 	 * 
 	 * @return An authentication token
 	 */
