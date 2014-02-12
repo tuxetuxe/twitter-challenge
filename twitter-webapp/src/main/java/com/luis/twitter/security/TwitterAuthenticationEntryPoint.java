@@ -9,6 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
+/**
+ * If control reaches this entry point the pre-authentication phased resulted in no authentication token being discovered.
+ * So the request can only be UNAUTHORIZED.
+ * s
+ * @author luis
+ *
+ */
 public class TwitterAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException,

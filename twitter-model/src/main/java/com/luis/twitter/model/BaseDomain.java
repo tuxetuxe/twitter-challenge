@@ -3,6 +3,12 @@ package com.luis.twitter.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+/**
+ * The base domain for all the models.
+ *  
+ * @author luis
+ *
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BaseDomain {
 

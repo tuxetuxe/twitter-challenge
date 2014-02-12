@@ -13,6 +13,12 @@ import com.luis.twitter.repository.exceptions.UserAlreadyFollowedException;
 import com.luis.twitter.repository.exceptions.UserNotFollowedException;
 import com.luis.twitter.repository.exceptions.UserNotFoundException;
 
+/**
+ * This Handler takes care of all the exceptions that would otherwise be propagated to the caller.
+ * It transforms the internal exceptions into nice HTTP responses with significant messages
+ * @author luis
+ *
+ */
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 

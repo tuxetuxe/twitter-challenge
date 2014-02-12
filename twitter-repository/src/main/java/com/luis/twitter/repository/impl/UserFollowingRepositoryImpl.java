@@ -16,6 +16,7 @@ import com.luis.twitter.model.UserFollowing;
 import com.luis.twitter.repository.UserFollowingRepository;
 import com.luis.twitter.repository.exceptions.UserAlreadyFollowedException;
 import com.luis.twitter.repository.exceptions.UserNotFollowedException;
+import com.luis.twitter.repository.exceptions.UserNotFoundException;
 
 @Repository
 @Transactional
@@ -29,7 +30,7 @@ public class UserFollowingRepositoryImpl extends BaseRepositoryImpl<UserFollowin
 	}
 
 	@Override
-	public void startFollowing(User user, User followingUser) {
+	public UserFollowing startFollowing(User user, User followingUser) {
 		Objects.requireNonNull(user);
 		Objects.requireNonNull(followingUser);
 
@@ -39,13 +40,14 @@ public class UserFollowingRepositoryImpl extends BaseRepositoryImpl<UserFollowin
 		parameters.put("following_id", followingUser.getId());
 		try {
 			getJdbcTemplate().update(query, parameters);
+			return findUserFollowing(user, followingUser);
 		} catch (DuplicateKeyException e) {
 			throw new UserAlreadyFollowedException(user, followingUser);
 		}
 	}
 
 	@Override
-	public void stopFollowing(User user, User followingUser) {
+	public UserFollowing stopFollowing(User user, User followingUser) {
 		Objects.requireNonNull(user);
 		Objects.requireNonNull(followingUser);
 
@@ -53,12 +55,16 @@ public class UserFollowingRepositoryImpl extends BaseRepositoryImpl<UserFollowin
 		if (!followedUsers.contains(followingUser)) {
 			throw new UserNotFollowedException(user, followingUser);
 		}
+		
+		UserFollowing userFollowingDeleted = findUserFollowing(user, followingUser);
+
 		String query = "DELETE FROM user_following WHERE user_id = :user_id AND following_id = :following_id ";
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("user_id", user.getId());
 		parameters.put("following_id", followingUser.getId());
 		getJdbcTemplate().update(query, parameters);
 
+		return userFollowingDeleted;
 	}
 
 	@Override
@@ -88,4 +94,17 @@ public class UserFollowingRepositoryImpl extends BaseRepositoryImpl<UserFollowin
 		List<User> followedUsers = getJdbcTemplate().query(query, parameters, userRowMapper);
 		return followedUsers;
 	}
+
+	private UserFollowing findUserFollowing(User user, User followingUser) {
+		String query = "SELECT * FROM user_following WHERE user_id = :user_id AND following_id = :following_id ";
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("user_id", user.getId());
+		parameters.put("following_id", followingUser.getId());
+		List<UserFollowing> userFollowings = getJdbcTemplate().query(query, parameters, getRowMapper());
+		if (userFollowings == null || userFollowings.size() != 1) {
+			throw new IllegalStateException();
+		}
+		return userFollowings.get(0);
+	}
+
 }

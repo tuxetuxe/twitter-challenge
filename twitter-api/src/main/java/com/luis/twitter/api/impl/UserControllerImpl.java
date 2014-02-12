@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.luis.twitter.api.UserController;
 import com.luis.twitter.model.User;
+import com.luis.twitter.model.UserFollowing;
 import com.luis.twitter.model.UsersList;
 import com.luis.twitter.repository.UserFollowingRepository;
 import com.luis.twitter.repository.UserRepository;
@@ -75,25 +76,23 @@ public class UserControllerImpl implements UserController {
 	@Override
 	@RequestMapping(method = RequestMethod.POST, value = "/{username:.*}/follow/{otherUsername}")
 	public @ResponseBody
-	Boolean startFollowingUser(@PathVariable String username, @PathVariable String otherUsername) {
+	UserFollowing startFollowingUser(@PathVariable String username, @PathVariable String otherUsername) {
 		Assert.notNull(username);
 		Assert.notNull(otherUsername);
 		User user = userRepository.findByUsername(username);
 		User otherUser = userRepository.findByUsername(otherUsername);
-		userFollowingRepository.startFollowing(user, otherUser);
-		return true;
+		return userFollowingRepository.startFollowing(user, otherUser);
 	}
 
 	@Override
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{username:.*}/follow/{otherUsername}")
 	public @ResponseBody
-	Boolean stopFollowingUser(@PathVariable String username, @PathVariable String otherUsername) {
+	UserFollowing stopFollowingUser(@PathVariable String username, @PathVariable String otherUsername) {
 		Assert.notNull(username);
 		Assert.notNull(otherUsername);
 		User user = userRepository.findByUsername(username);
 		User otherUser = userRepository.findByUsername(otherUsername);
-		userFollowingRepository.stopFollowing(user, otherUser);
-		return true;
+		return userFollowingRepository.stopFollowing(user, otherUser);
 	}
 
 	@Override

@@ -8,6 +8,12 @@ import org.springframework.util.StringUtils;
 
 import com.luis.twitter.repository.impl.AuthenticationTokenRepositoryImpl;
 
+/**
+ * An authentication filter that discovers the "token" parameter and uses it as the authenticated principal
+ * 
+ * @author luis
+ *
+ */
 public class TokenAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
 
 	@Autowired

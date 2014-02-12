@@ -7,9 +7,9 @@ import com.luis.twitter.model.UserFollowing;
 
 public interface UserFollowingRepository extends BaseRepository<UserFollowing> {
 
-	void startFollowing(User user, User followingUser);
+	UserFollowing startFollowing(User user, User followingUser);
 
-	void stopFollowing(User user, User followingUser);
+	UserFollowing stopFollowing(User user, User followingUser);
 
 	List<User> findWhoTheUserFollows(User user);
 

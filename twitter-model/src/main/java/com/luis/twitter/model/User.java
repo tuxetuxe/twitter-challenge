@@ -4,6 +4,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * A model representing a very simple user
+ * 
+ * @author luis
+ *
+ */
 @XmlRootElement(name="user")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User extends BaseDomain {

@@ -6,6 +6,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * A Model for a tweet.
+ * When serialized to xml the tag name will be "tweet"
+ * 
+ * @author luis
+ *
+ */
 @XmlRootElement(name = "tweet")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tweet extends BaseDomain {
